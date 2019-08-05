@@ -18,6 +18,7 @@ export class PostListComponent implements OnInit {
   @Input() loggedInUserName: string = "";
   userName: String
   comment: Comment;
+  edit = false;
 
   
 
@@ -45,5 +46,11 @@ export class PostListComponent implements OnInit {
   });
 }
 
- 
+ toggleEdit() {
+   if(this.edit === false) {
+     this.edit =true;
+   } else {
+     this.edit= false;
+   }
+ }
 }
