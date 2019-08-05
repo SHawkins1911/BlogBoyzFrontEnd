@@ -44,4 +44,6 @@ export class PostListComponent implements OnInit {
     this.updateService.posts = data;
   });
 }
+
+ 
 }
