@@ -5,6 +5,8 @@ import { PostService } from './post-service';
 @Injectable()
 export class UpdateService {
     posts: Post[];
+    content: string;
+    title: string;
 
     constructor(public postService : PostService) { 
     }
@@ -26,6 +28,10 @@ export class UpdateService {
           this.postService.findAll().subscribe(data => {   
           this.posts = data;
         });
+      }
+
+      submitChanges( ) {
+        console.log( this.content , this.title)
       }
 
 }

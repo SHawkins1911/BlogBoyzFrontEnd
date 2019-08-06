@@ -16,7 +16,8 @@ export class PostListComponent implements OnInit {
   @Input() showNewPost =false;
   @Input() loggedInUser: User;
   @Input() loggedInUserName: string = "";
-  userName: String
+  selectedPostId: number = 0;
+  userName: string;
   comment: Comment;
   edit = false;
 
@@ -46,10 +47,12 @@ export class PostListComponent implements OnInit {
   });
 }
 
- toggleEdit() {
+ toggleEdit(id: number) {
    if(this.edit === false) {
+     this.selectedPostId = id;
      this.edit =true;
    } else {
+     this.selectedPostId = 0;
      this.edit= false;
    }
  }
