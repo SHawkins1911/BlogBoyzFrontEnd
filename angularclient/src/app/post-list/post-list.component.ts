@@ -16,10 +16,8 @@ export class PostListComponent implements OnInit {
   @Input() showNewPost =false;
   @Input() loggedInUser: User;
   @Input() loggedInUserName: string = "";
-  selectedPostId: number = 0;
   userName: string;
   comment: Comment;
-  edit = false;
 
   
 
@@ -36,7 +34,7 @@ export class PostListComponent implements OnInit {
     console.log("author" + this.comment.author);
     await this.commentService.saveComment(this.comment , post_id).then( () => console.log("success"))
     this.updateService.getAllPost();
-    this.comment.content = ""
+    this.comment.content = "";
     this.loggedInUserName = "";
 
   }
@@ -47,13 +45,5 @@ export class PostListComponent implements OnInit {
   });
 }
 
- toggleEdit(id: number) {
-   if(this.edit === false) {
-     this.selectedPostId = id;
-     this.edit =true;
-   } else {
-     this.selectedPostId = 0;
-     this.edit= false;
-   }
- }
+
 }

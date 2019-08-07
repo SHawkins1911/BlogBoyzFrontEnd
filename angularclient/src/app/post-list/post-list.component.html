@@ -2,8 +2,8 @@
  <div id="card_wrapper">
 <div *ngFor="let post of updateService.posts" class="card">
   <div class="card-header title">
-    <h4 *ngIf ="edit === false || selectedPostId != this.post.post_id">{{post.title}}</h4>
-    <textarea *ngIf ="edit && selectedPostId === this.post.post_id" name="edittext" id="" cols="60" rows="2" class="editText"   [(ngModel)]="updateService.title">{{post.title}} </textarea>
+    <h4 *ngIf ="updateService.edit === false || updateService.selectedPostId != this.post.post_id">{{post.title}}</h4>
+    <textarea *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" name="edittext" id="" cols="60" rows="2" class="editText"   [(ngModel)]="updateService.title">{{post.title}}</textarea>
   </div>
   {{post.tag}}
   <div class="imgWrapper">
@@ -12,12 +12,12 @@
   
   <div class="card-body">
     <blockquote class="blockquote mb-0">
-      <p *ngIf ="edit === false || selectedPostId != this.post.post_id">{{post.content}}</p>
-      <textarea *ngIf ="edit && selectedPostId === this.post.post_id" name="edittext" id="" cols="70" rows="10" class="editText"  [(ngModel)]="updateService.content">{{post.content}}</textarea>
+      <p *ngIf ="updateService.edit === false || updateService.selectedPostId != this.post.post_id">{{post.content}}</p>
+      <textarea *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" name="edittext" id="" cols="70" rows="10" class="editText"  [(ngModel)]="updateService.content">{{post.content}}</textarea>
 
 <!--################# SUBMIT EDITS ###############-->
       <div>
-        <button *ngIf ="edit && selectedPostId === this.post.post_id" class="btn btn-outline-success my-2 my-sm-0"  type="submit" (click) = "updateService.submitChanges(this.post.post_id)" >Submit Changes</button>
+        <button *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" class="btn btn-outline-success my-2 my-sm-0"  type="submit" (click) = "updateService.submitChanges(this.post.post_id)" >Submit Changes</button>
       </div>
 
 <!--################# POST BODY ###############-->
@@ -28,7 +28,7 @@
           </div>
           <div class="col align-self-start">
             <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" (click)="updateService.deletePost(this.post.post_id)" type="button" class="btn btn-outline-danger btn-sm deleteBtn">Delete</button>
-            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" type="button" (click) = "toggleEdit(this.post.post_id)" class="btn btn-outline-warning btn-sm editBtn Btn">Edit <i class="far fa-edit"></i></button>
+            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" type="button" (click) = "updateService.toggleEdit(this.post.post_id, this.post.content, this.post.title)" class="btn btn-outline-warning btn-sm editBtn Btn">Edit <i class="far fa-edit"></i></button>
             <button   type="button" (click)="commentService.toggleComments(this.post.post_id)" class="btn btn-outline-info btn-sm commmentBtn">Comments</button>
             
           </div>

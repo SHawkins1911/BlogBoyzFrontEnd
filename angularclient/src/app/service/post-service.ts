@@ -45,6 +45,11 @@ export class PostService {
   }
 
   public getUserbyID(id:number) {
-    return this.http.get<User>(this.rootUrl + "user/" + id)
+    return this.http.get<User>(this.rootUrl + "user/" + id) 
+  }
+
+  async updatePost(id: number, post: Post) {
+    const t = this.http.put<Post>(this.rootUrl + "posts/" + id, post).toPromise();
+    return t;
   }
 }
