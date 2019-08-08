@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit {
   @Input() showNewPost =false;
   @Input() loggedInUser: User;
   @Input() loggedInUserName: string = "";
-  userName: String
+  userName: string;
   comment: Comment;
 
   
@@ -34,7 +34,7 @@ export class PostListComponent implements OnInit {
     console.log("author" + this.comment.author);
     await this.commentService.saveComment(this.comment , post_id).then( () => console.log("success"))
     this.updateService.getAllPost();
-    this.comment.content = ""
+    this.comment.content = "";
     this.loggedInUserName = "";
 
   }
@@ -44,4 +44,6 @@ export class PostListComponent implements OnInit {
     this.updateService.posts = data;
   });
 }
+
+
 }

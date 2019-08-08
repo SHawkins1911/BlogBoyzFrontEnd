@@ -40,3 +40,11 @@ img {
 .commentAuthor{
   text-align: left;
 }
+
+.editBtn {
+  margin-left: 1em;
+}
+
+.editText{
+  width: 80%
+}
