@@ -15,8 +15,6 @@ export class PostFormComponent {
   @Input() loggedInUser_Id: number;
   @Input() loggedInUser: User;
   @Output() updateList = new EventEmitter();
-
-  
   post: Post;
 
   constructor(private route: ActivatedRoute, private router: Router, private postService: PostService) {
@@ -29,7 +27,6 @@ export class PostFormComponent {
     this.post.user_id = this.loggedInUser.user_id
     this.showNewPost = false;
     await this.postService.save(this.post).then( () => console.log("success"));
-    console.log(this.loggedInUser.user_id, this.post.user_id)
     this.sendEmit()
   }
 

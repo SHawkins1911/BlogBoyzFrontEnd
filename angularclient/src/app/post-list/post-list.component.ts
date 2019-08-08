@@ -2,7 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import { Post } from '../post';
 import {PostService} from '../service/post-service';
 import { User } from '../user';
-import { post } from 'selenium-webdriver/http';
+import { CommentService } from '../service/comment-service';
+import { Comment } from "../comment";
+import { UpdateService } from '../service/update-service';
 
 @Component({
   selector: 'app-post-list',
@@ -13,45 +15,35 @@ export class PostListComponent implements OnInit {
   @Input() userLoggedin = false;
   @Input() showNewPost =false;
   @Input() loggedInUser: User;
-  showComment = false;
-  userName: String
-  posts: Post[];
+  @Input() loggedInUserName: string = "";
+  userName: string;
+  comment: Comment;
+
   
 
-  constructor(private postService: PostService ) {
+  constructor(public postService: PostService, public commentService: CommentService, public updateService : UpdateService  ) {
+    this.comment = new Comment();
   }
 
   ngOnInit() {
-    this.getAllPost()
+    this.updateService.getAllPost()
   }
 
-  async deletePost(id) {
-   await this.postService.delete(id).then(data => {
-      console.log("success")
-      this.getAllPost()
-    })
-  };
+  async onSubmit(post_id : number) {
+    this.comment.author=this.loggedInUserName;
+    console.log("author" + this.comment.author);
+    await this.commentService.saveComment(this.comment , post_id).then( () => console.log("success"))
+    this.updateService.getAllPost();
+    this.comment.content = "";
+    this.loggedInUserName = "";
 
-  getPostByTag(tag : string){
-    this.postService.findByTag(tag).subscribe(data => {
-      this.posts = data;
-    })
   }
 
    getAllPost(){
-    console.log("test")
-      this.postService.findAll().subscribe(data => {   
-      this.posts = data;
-    });
-  }
+    this.postService.findAll().subscribe(data => {   
+    this.updateService.posts = data;
+  });
+}
 
-  toggleComments () {
-    console.log(this.showComment)
-      if (this.showComment === false) {
-        this.showComment = true;
-      } else {
-        this.showComment = false;
-      }
 
-  }
 }

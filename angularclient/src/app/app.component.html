@@ -2,8 +2,23 @@
 <!--NAVBAR-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <h4><a class="navbar-brand nav_title" (click)=listComponent.getAllPost() href="#" class="title">Blogboyz</a></h4>
+  <h4 class="navbar-brand nav_title" id="title"> Blogboyz</h4>
   <button *ngIf="userLoggedInFlag" class="btn btn-secondary"(click)= "changeDisplayPostInput()" href="#">Make Post</button>
+  <div class="dropdown dropBtn ">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter By Tag
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" (click)="updateService.getPostByTag('SPORTS')" href="#">Sports</button>
+      <button class="dropdown-item" (click)="updateService.getPostByTag('FINANCE')" href="#">Finance</button>
+      <button class="dropdown-item" (click)="updateService.getPostByTag('TECHONLOGY')" href="#">Technology</button>
+      <button class="dropdown-item" (click)="updateService.getPostByTag('BUSINESS')" href="#">Business</button>
+      <button class="dropdown-item" (click)="updateService.getPostByTag('OTHER')" >Other</button>
+      <button class="dropdown-item" (click)="updateService.getAllPost()" >All</button>
+    </div>
+  </div>
+  <!-- <input id="search" class="form-control mr-sm-2 loginField" type="search" placeholder="search"> -->
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,7 +32,7 @@
 
 <app-banner></app-banner>
 <app-post-form [loggedInUser] = "tempUser" [showNewPost] = "showPostForm" [loggedInUserName]="loginUser.name" (updateList)="listComponent.getAllPost()" ></app-post-form>
-<app-post-list [loggedInUser] = "tempUser" [userLoggedin] ="userLoggedInFlag" #listComponent></app-post-list>
+<app-post-list [loggedInUser] = "tempUser" [userLoggedin] ="userLoggedInFlag" [loggedInUserName]="loginUser.name" #listComponent></app-post-list>
 
 
 
@@ -31,8 +46,8 @@
     <input id="createUserName" class="form-control mr-sm-2 loginField" type="search"  placeholder="Username" [(ngModel)]="user.name">
     <label class="form-check-label" for="createUserpassword">Password</label>
     <input id="createUserpassword" class="form-control mr-sm-2 loginField" type="password" placeholder="Password" [(ngModel)]="user.password">
-    <button class="btn btn-outline-success my-2 my-sm-0" id="submitCreateBtn" type="submit" (click)= createUser() (keyup.enter)="createUser()">Submit</button>
-    <button class="btn btn-outline-danger my-2 my-sm-0" id="exitCreateBtn" type="submit" (click)=changeDisplayCreateUserModal() (keyup.escape)="changeDisplayCreateUserModal()">Exit</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" id="submitCreateBtn" type="submit" (click)= createUser() (keydown.enter)="createUser()">Submit</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" id="exitCreateBtn" type="submit" (click)=changeDisplayCreateUserModal() (keydown.esc)="changeDisplayCreateUserModal()">Exit</button>
   </div>
 
 </div>
@@ -46,10 +61,9 @@
     <input id="loginUserName"class="form-control mr-sm-2 loginField" type="search"  placeholder="Username" [(ngModel)]="loginUser.name">
     <label class="form-check-label" for="loginUserpassword">Password</label>
     <input id="loingUserpassword"class="form-control mr-sm-2 loginField" type="password" placeholder="Password" [(ngModel)]="loginUser.password">
-    <button class="btn btn-outline-success my-2 my-sm-0" id="submitLoginBtn" type="submit" (click)= authUser(loginUser.name) (keyup.enter)="authUser(loginUser.name)">Submit</button>
-    <button class="btn btn-outline-danger my-2 my-sm-0" id="exitLoginBtn" type="submit" (click)=changeDisplayLogin()>Exit</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" id="submitLoginBtn" type="submit" (click)= authUser(loginUser.name) (keydown.enter)=authUser(loginUser.name)>Submit</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" id="exitLoginBtn" type="submit" (click)=changeDisplayLogin() (keydown.esc)= changeDisplayLogin() >Exit</button>
   </div>
-
 </div>
 
 

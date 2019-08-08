@@ -35,10 +35,23 @@
   margin-right: 1em;
 }
 
-.title{
+#title{
   font-family: 'Staatliches', cursive;
   color: white;
   margin-right: 1em;
-
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
+.dropBtn{
+  margin-left: .5rem;
+}
+
+#search{
+  margin-left: .5rem;
+  width: 10rem;
+  margin-bottom: 0;
+}
+.nav {
+  padding-bottom: 1rem
+}

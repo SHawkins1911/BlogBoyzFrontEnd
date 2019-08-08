@@ -6,11 +6,6 @@
   margin-top: 2em;
 }
 
-.dropBtn {
-  margin-top: 4em;
-}
-
-
 .loginPass{
   margin-top: 10em;
 }
@@ -28,8 +23,28 @@ img {
 
 .comment{
   text-align: left;
-  padding-left: 10em;
+  padding-left: 5em;
 }
 .commmentBtn {
   margin-left: 1em;
+}
+
+.commentField{
+  margin-bottom: 1em;
+  margin-top: .5em;
+}
+.commentFormWrapper{
+  text-align: center
+}
+
+.commentAuthor{
+  text-align: left;
+}
+
+.editBtn {
+  margin-left: 1em;
+}
+
+.editText{
+  width: 80%
 }

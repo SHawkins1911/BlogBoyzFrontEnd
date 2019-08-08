@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PostService} from "./service/post-service";
 import {User} from "./user";
+import { UpdateService } from './service/update-service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
   tempUser:User;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService) {
+  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService, public updateService : UpdateService) {
     this.user = new User();
     this.loginUser = new User();
     this.tempUser = new User();
@@ -47,7 +48,6 @@ export class AppComponent {
             this.loginBtn = "Logout";
             this.userLoggedInFlag = true;
             this.showSignInModal = false;
-            console.log(this.tempUser.user_id)
             alert("Login Succes")
            
         } else alert("Incorrect password!");
@@ -61,12 +61,11 @@ export class AppComponent {
     if (this.showPostForm ===false){
       this.showPostForm = true;}
     else this.showPostForm = false;
-    // window.scrollTo(0, 0)
   }
 
 
   changeDisplayCreateUserModal() {
-    if (this.showCreateUserModal ===false){
+    if (this.showCreateUserModal === false){
       this.showCreateUserModal = true;}
     else this.showCreateUserModal = false;
   }
@@ -84,7 +83,6 @@ export class AppComponent {
   }
 
   createUser() {
-    console.log("showPostForm");
     this.postService.saveUser(this.user).subscribe( ()=> console.log("success"));
     alert("user created")
     this.changeDisplayCreateUserModal()

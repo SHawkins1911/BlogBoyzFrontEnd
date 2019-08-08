@@ -1,48 +1,52 @@
 
-  <div class="dropdown dropBtn fixed-bottom ">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Filter By Tag
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <button class="dropdown-item" (click)="getPostByTag('SPORTS')" href="#">Sports</button>
-      <button class="dropdown-item" (click)="getPostByTag('FINANCE')" href="#">Finance</button>
-      <button class="dropdown-item" (click)="getPostByTag('TECHONLOGY')" href="#">Technology</button>
-      <button class="dropdown-item" (click)="getPostByTag('BUSINESS')" href="#">Business</button>
-      <button class="dropdown-item" (click)="getPostByTag('OTHER')" >Other</button>
-      <button class="dropdown-item" (click)="getAllPost()" >All</button>
-    </div>
-  </div>
-
-
-<div id="card_wrapper">
-<div *ngFor="let post of posts" class="card">
+ <div id="card_wrapper">
+<div *ngFor="let post of updateService.posts" class="card">
   <div class="card-header title">
-    <h4>{{post.title}}</h4>
+    <h4 *ngIf ="updateService.edit === false || updateService.selectedPostId != this.post.post_id">{{post.title}}</h4>
+    <textarea *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" name="edittext" id="" cols="60" rows="2" class="editText"   [(ngModel)]="updateService.title">{{post.title}}</textarea>
   </div>
   {{post.tag}}
   <div class="imgWrapper">
     <img src="{{post.image || 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'}} " class="img-fluid" alt="Responsive image">
   </div>
+  
   <div class="card-body">
     <blockquote class="blockquote mb-0">
-      <p>{{post.content}}</p>
+      <p *ngIf ="updateService.edit === false || updateService.selectedPostId != this.post.post_id">{{post.content}}</p>
+      <textarea *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" name="edittext" id="" cols="70" rows="10" class="editText"  [(ngModel)]="updateService.content">{{post.content}}</textarea>
+
+<!--################# SUBMIT EDITS ###############-->
+      <div>
+        <button *ngIf ="updateService.edit && updateService.selectedPostId === this.post.post_id" class="btn btn-outline-success my-2 my-sm-0"  type="submit" (click) = "updateService.submitChanges(this.post.post_id)" >Submit Changes</button>
+      </div>
+
+<!--################# POST BODY ###############-->
       <div class="container">
         <div class="row">
           <div class="col align-self-end">
             <footer class="blockquote-footer">{{post.author}} <cite title="Source Title">{{post.date}}</cite></footer>
           </div>
           <div class="col align-self-start">
-            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" (click)="deletePost(this.post.post_id)" type="button" class="btn btn-warning btn-sm deleteBtn">Delete</button>
-            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id"  type="button" (click)="toggleComments()" class="btn btn-info btn-sm commmentBtn">Comments</button>
+            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" (click)="updateService.deletePost(this.post.post_id)" type="button" class="btn btn-outline-danger btn-sm deleteBtn">Delete</button>
+            <button *ngIf="userLoggedin && loggedInUser.user_id == post.user_id" type="button" (click) = "updateService.toggleEdit(this.post.post_id, this.post.content, this.post.title)" class="btn btn-outline-warning btn-sm editBtn Btn">Edit <i class="far fa-edit"></i></button>
+            <button   type="button" (click)="commentService.toggleComments(this.post.post_id)" class="btn btn-outline-info btn-sm commmentBtn">Comments</button>
+            
           </div>
         </div>
       </div>
     </blockquote>
   </div>
-  <div *ngIf="showComment" class="commentwrapper">
+ <!--################# COMMENTS ###############-->
+  <div *ngIf="commentService.showComment && commentService.postId == this.post.post_id " class="commentwrapper">
     <h5>Comments</h5>
     <div *ngFor="let comment of post.comments">
       <p class="comment">-{{comment.content}}<p>
+        <p class="commentAuthor">{{comment.author}}</p>
+    </div>
+    <div class="commentFormWrapper" *ngIf="userLoggedin">
+      <label class="form-check-label" for="comment">Make new comment!</label>
+      <textarea  id="loingUserpassword"class="form-control mr-sm-2 commentField" type="text" rows="5" placeholder="Comment" [(ngModel)]="comment.content" ></textarea>
+      <button class="btn btn-outline-success my-2 my-sm-0" id="submitLoginBtn" (click)="onSubmit(this.post.post_id)" type="submit" >Submit</button>
     </div>
   </div>
 </div>
@@ -50,4 +54,3 @@
 
 
 
-<!-- (click)="deletePost(this.post.post_id)" -->
