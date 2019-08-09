@@ -1,14 +1,12 @@
 .jumbotron {
   font-family: 'Staatliches', cursive;
-
     margin-top: 10em;
-    padding-top: 46%;
+    padding-top: 6%;
     color: white;
     z-index: 100;
-    background: url(https://cdn.pixabay.com/photo/2015/07/05/13/35/graffiti-832341_1280.jpg) no-repeat center center fixed; 
+    background: url(https://cdn.pixabay.com/photo/2015/07/05/13/35/graffiti-832341_1280.jpg) no-repeat bottom  fixed; 
     background-color: grey;
     background-size: cover;
-    margin: 0
-  
-  
+    margin: 0;
+    
   }
